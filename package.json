@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-terminal-panel",
+  "name": "dsh-terminal-panel",
   "version": "0.1.0",
   "description": "Terminal panel: run commands in the current workspace with streaming output, tabs, and Ctrl+C",
   "type": "module",
