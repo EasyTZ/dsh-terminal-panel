@@ -9,4 +9,4 @@
 
 - insert:
     - id: dsdesktop-terminal-panel
-      name: 'dsh-terminal-panel'
+      name: '@easytz/dsh-terminal-panel'
