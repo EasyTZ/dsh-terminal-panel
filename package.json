@@ -4,6 +4,9 @@
   "description": "Terminal panel: run commands in the current workspace with streaming output, tabs, and Ctrl+C",
   "type": "module",
   "main": "lib/index.js",
+  "scripts": {
+    "test": "node --test \"test/*.test.js\""
+  },
   "exports": {
     ".": {
       "default": "./lib/index.js"
