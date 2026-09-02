@@ -7,30 +7,39 @@
 ## 前置要求
 
 - dsh `>= 0.1.1-rc.2`（peer 依赖：`@deepseek-ai/cordis ^4.0.1`、`@deepseek-ai/dsh-host-webserver ^0.1.1-rc.2`、`@deepseek-ai/dsh-workspace ^0.1.1-rc.2`、`@deepseek-ai/dsh-shell ^0.1.1-rc.2`）
+- `pnpm` 可用（`dsh plugin` 底层转发给 pnpm）
 
 ## 安装
 
-「装进去」和「打开它」是两件事，缺一不可：
+一条命令装完：
 
 ```sh
-dsh plugin --profile <name> add github:EasyTZ/dsh-terminal-panel#v0.1.2
+dsh plugin --profile <name> add github:EasyTZ/dsh-terminal-panel#v0.2.1
 ```
 
-> **必须写 GitHub 地址，不能只写包名。** `dsh plugin add` 会把参数原样转给 pnpm，只写 `dsh-terminal-panel` 会去 npm registry 找同名包 —— 那可能是别人的包（`dsh-git` 在 npm 上就已被他人占用）。换个 tag 就是换版本；想跟最新可以用 `#main`，但**不建议**：钉 tag 才能复现。
+`<name>` 换成你的 profile 名（桌面版通常为 `web`，TUI 为 `tui`）。插件自带 `dsh.bundle` 层（`cordis.patch.yml`），`dsh plugin add` 会同时完成「装进去」和「注册激活」，**不需要再手写 patch**。
 
-## 激活
+> 命令里的 `#v0.2.1` 是版本 tag，钉 tag 才能复现；想追最新可以改成 `#main`，但不建议。`dsh plugin` 底层转发给 pnpm，所以机器上要有可用的 `pnpm`。
 
-往 patch 层文件（`$DSH_HOME/profiles/<name>/cordis.patch.yml` 或机器级 `$DSH_HOME/cordis.patch.yml`）里加一条 `- insert:` 条目：
+重启 dsh 后，侧边栏底部会出现终端按钮。
 
-```yaml
-- insert:
-    - id: dsh-terminal-panel
-      name: 'dsh-terminal-panel'
+## 使用
+
+点侧边栏底部的终端按钮打开终端面板：在当前工作区敲命令、看实时输出、多标签页、Ctrl+C 中断运行中的命令、Tab 补全文件路径与 PATH 上的命令名、查看每条命令的退出码、一键「在系统终端中打开」。
+
+## 卸载
+
+一条命令卸载：
+
+```sh
+dsh plugin --profile <name> remove @easytz/dsh-terminal-panel
 ```
 
-> **`id` 别用通用词**（比如 `terminal-panel`）。`- insert:` 不去重：一旦与 dsh 自带 bundle 里某条条目同名，cordis loader 会抛 `duplicate loader entry id`，**内核直接退出**。dsh 自带的 id 里有大量 `git` / `session` / `settings` / `storage` 这类通用词，而且内核会自行更新到新版本 —— 撞车只是时间问题。直接拿包名当 id 最省事。
+`<name>` 与安装时一致。`remove` 会把包从 profile 依赖里移除，`dsh` 随后会把它从激活清单（`dsh.profile.bundles`）里撤掉。
 
-重启 dsh 后，侧边栏底部会出现终端按钮，点它打开面板。
+> 如果你按旧版 README 手动往 `$DSH_HOME/profiles/<name>/cordis.patch.yml` 或 `$DSH_HOME/cordis.patch.yml` 里加过 `- insert:` 条目，卸载时把那段 YAML 一起删掉。
+
+重启 dsh 后，侧边栏里的终端按钮消失。
 
 ## 已知限制
 
