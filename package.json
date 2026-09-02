@@ -1,6 +1,6 @@
 {
   "name": "@easytz/dsh-terminal-panel",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Terminal panel: run commands in the current workspace with streaming output, tabs, and Ctrl+C",
   "type": "module",
   "main": "lib/index.js",

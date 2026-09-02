@@ -410,3 +410,30 @@ test("入口按钮排在 Git 之上（order 升序，数字小的在前）", () 
 		cleanup();
 	}
 });
+
+
+/**
+ * 把源码里的注释行剔掉、反斜杠转义还原，再拿去匹配 CSS 规则。
+ *
+ * 这两步都不能省：这几个文件的注释里都写着 `[class*="footerActions"]` 这串选择器
+ * （在解释它为什么长这样），只 grep 源码的话，把规则整条删掉、只留注释，测试照样
+ * 绿。转义还原是因为规则可能写在双引号字符串里，文件里存的是 \" 而不是 "。
+ */
+function cssSource(file) {
+	return fs.readFileSync(file, "utf8")
+		.split("\n")
+		.filter((line) => !/^\s*(\/\/|\*|\/\*)/.test(line))
+		.join("\n")
+		.replace(/\\"/g, '"');
+}
+
+test("侧边栏 footer 的纵向排列规则还在（别删，Git/市场/余额各有一份同样的）", () => {
+	// 上游那个容器是 display:flex（默认 row、不换行）。这条规则最早只写在本插件里，
+	// 结果「装了终端面板的机器一切正常、只装市场 + 余额的机器上三个图标挤成一行」
+	// —— 一个插件的样式在替别的插件兜底，而任何一个插件都可能被单独安装。现在四个
+	// footer 插件各带一份，重复是有意的，不是漏删。
+	assert.ok(
+		/\[class\*="footerActions"\]\{[^}]*flex-direction:column/.test(cssSource(CLIENT)),
+		"终端面板必须自己注入 footerActions 的纵向排列规则"
+	);
+});
