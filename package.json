@@ -1,6 +1,6 @@
 {
   "name": "@easytz/dsh-terminal-panel",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "终端面板：在当前工作区运行命令，支持流式输出、多标签页和 Ctrl+C（Terminal panel: run commands in the current workspace with streaming output, tabs, and Ctrl+C）",
   "type": "module",
   "main": "lib/index.js",
