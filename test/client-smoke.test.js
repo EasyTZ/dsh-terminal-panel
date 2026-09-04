@@ -437,3 +437,13 @@ test("侧边栏 footer 的纵向排列规则还在（别删，Git/市场/余额�
 		"终端面板必须自己注入 footerActions 的纵向排列规则"
 	);
 });
+
+test("输出区的 warning 行样式应存在且使用黄色 token", () => {
+	// stderr 不全是 error：npm / webpack / gcc / node 等工具的 warning 也走 stderr。
+	// 若只有 dstLineErr 一种样式，warning 就会被整行涂红；这里要求渲染层同时提供
+	// dstLineWarn，避免后续有人把“stderr = red”这条简化规则改回去时没测试拦住。
+	assert.ok(
+		/\.dstLineWarn\{[^}]*state-warn-primary[^}]*\}/.test(cssSource(CLIENT)),
+		"终端面板必须注入使用 state-warn-primary 的 dstLineWarn 样式"
+	);
+});
