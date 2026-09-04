@@ -7,9 +7,12 @@
 
 ![终端面板：多标签页、实时输出、路径与命令补全](docs/panel.png)
 
+<details open>
+<summary><b>中文</b></summary>
+
 ## 前置要求
 
-- dsh `>= 0.1.1-rc.2`（peer 依赖：`@deepseek-ai/cordis ^4.0.1`、`@deepseek-ai/dsh-host-webserver ^0.1.1-rc.2`、`@deepseek-ai/dsh-workspace ^0.1.1-rc.2`、`@deepseek-ai/dsh-shell ^0.1.1-rc.2`）
+- dsh `>= 0.1.1-rc.2`
 - `pnpm` 可用（`dsh plugin` 底层转发给 pnpm）
 
 ## 安装
@@ -66,9 +69,10 @@ dsh plugin --profile <name> remove @easytz/dsh-terminal-panel
 
 目前只在 Windows 上验证过；插件对 macOS 做了登录 shell 探测兜底（GUI 启动的进程 PATH 会塌陷），未做完整验证，欢迎反馈。
 
----
+</details>
 
-## English
+<details>
+<summary><b>English</b></summary>
 
 A third-party plugin for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (dsh) that adds a **command console** to the sidebar.
 
@@ -115,6 +119,8 @@ dsh plugin --profile <name> remove @easytz/dsh-terminal-panel
 - **Each command is a separate process**, so `cd` isn't preserved at the process level (the panel tracks and displays the directory itself).
 - On Windows commands run through `pwsh -NoLogo -NoProfile -NonInteractive`; on macOS through `bash -c` (no rc files). That's the dsh kernel's per-platform executor, not this plugin.
 - Verified on Windows only; macOS has a login-shell PATH fallback but is untested. Feedback welcome.
+
+</details>
 
 ## 许可证 / License
 
