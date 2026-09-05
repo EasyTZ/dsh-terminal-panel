@@ -411,6 +411,25 @@ test("入口按钮排在 Git 之上（order 升序，数字小的在前）", () 
 	}
 });
 
+test("徽标存储要记录会话 id，且错误优先", () => {
+	try {
+		const { injected } = mount();
+		const badgeStore = injected["terminal-panel"].badgeStore;
+		assert.ok(badgeStore, "应注入 badgeStore");
+		badgeStore.set("success", "sess-1");
+		assert.deepStrictEqual(badgeStore.getSnapshot(), { kind: "success", id: "sess-1" });
+		badgeStore.set("error", "sess-2");
+		assert.deepStrictEqual(badgeStore.getSnapshot(), { kind: "error", id: "sess-2" });
+		// 错误优先：成功不能覆盖错误，这样打开面板时定位到最近失败的那个。
+		badgeStore.set("success", "sess-3");
+		assert.deepStrictEqual(badgeStore.getSnapshot(), { kind: "error", id: "sess-2" });
+		badgeStore.clear();
+		assert.strictEqual(badgeStore.getSnapshot(), null);
+	} finally {
+		cleanup();
+	}
+});
+
 
 /**
  * 把源码里的注释行剔掉、反斜杠转义还原，再拿去匹配 CSS 规则。
