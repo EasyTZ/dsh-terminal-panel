@@ -278,11 +278,18 @@ function mount() {
 	// 「新建标签」那条路就走不到。
 	const workspaces = {
 		list: {
-			subscribe: () => () => {},
-			getSnapshot: () => ({ items: [{ workspaceId: "ws-1", sessionIds: ["dsh-sess-1"] }], recentWorkspaceId: "ws-1" })
+			value: { items: [{ workspaceId: "ws-1", sessionIds: ["dsh-sess-1"] }], recentWorkspaceId: "ws-1" },
+			subscribe() { assert.ok(this.value); return () => {}; },
+			getSnapshot() { return this.value; }
 		}
 	};
-	const sessions = { list: { subscribe: () => () => {}, getSnapshot: () => ({ current: "dsh-sess-1" }) } };
+	const sessions = {
+		list: {
+			value: { current: "dsh-sess-1" },
+			subscribe() { assert.ok(this.value); return () => {}; },
+			getSnapshot() { return this.value; }
+		}
+	};
 	const ctx = {
 		effect: (fn) => { fn(); return () => {}; },
 		on: () => () => {},

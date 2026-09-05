@@ -1,11 +1,15 @@
-# dsh-terminal-panel
+<h1 align="center">dsh-terminal-panel</h1>
+<p align="center"><b>让命令、输出与当前工作区待在同一个界面。</b></p>
+<p align="center">实时输出 · 多标签 · Tab 补全 · 命令历史 · Ctrl+C 中断</p>
+<p align="center">
+  <a href="https://www.npmjs.com/package/@easytz/dsh-terminal-panel"><img alt="npm" src="https://img.shields.io/npm/v/@easytz/dsh-terminal-panel?style=flat-square&color=4d6bfe"></a>
+  <img alt="dsh plugin" src="https://img.shields.io/badge/dsh-plugin-17223b?style=flat-square">
+  <img alt="platform" src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-2f855a?style=flat-square">
+  <img alt="license" src="https://img.shields.io/badge/license-MIT-8b5cf6?style=flat-square">
+</p>
+<p align="center"><img src="docs/panel.png" alt="终端面板：多标签、实时输出与命令补全" width="900"></p>
 
-**终端面板：在当前工作区敲命令、看实时输出，多标签页、Tab 补全、Ctrl+C 中断。**
-**Terminal panel for DeepSeek Harness: run commands with streaming output, tabs, completion.**
-
-[DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（下称 dsh）的第三方插件，在侧边栏加一个命令控制台。
-
-![终端面板：多标签页、实时输出、路径与命令补全](docs/panel.png)
+> Command panel for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness): streaming output, tabs and completion without leaving the workspace.
 
 <details open>
 <summary><b>中文</b></summary>
@@ -25,7 +29,7 @@
 dsh plugin --profile <name> add @easytz/dsh-terminal-panel
 ```
 
-`<name>` 是**必填**的 profile 名，不能省略——桌面版通常是 `web`，TUI 是 `tui`；不确定就看 `$DSH_HOME/profiles/` 下的目录名。想钉死版本就写 `@easytz/dsh-terminal-panel@0.2.6`。
+`<name>` 是**必填**的 profile 名，不能省略——桌面版通常是 `web`，TUI 是 `tui`；不确定就看 `$DSH_HOME/profiles/` 下的目录名。想钉死版本就写 `@easytz/dsh-terminal-panel@0.2.7`。
 
 插件自带 `dsh.bundle` 层（`cordis.patch.yml`），`dsh plugin add` 会同时完成「装进去」和「注册激活」，**不需要手写 patch**。
 
@@ -67,7 +71,7 @@ dsh plugin --profile <name> remove @easytz/dsh-terminal-panel
 
 ## 平台支持
 
-目前只在 Windows 上验证过；插件对 macOS 做了登录 shell 探测兜底（GUI 启动的进程 PATH 会塌陷），未做完整验证，欢迎反馈。
+已在 Windows 与 macOS 上验证；macOS 包含 GUI 启动场景的登录 shell PATH 探测兜底，Linux 使用同一套 POSIX 路径。
 
 </details>
 

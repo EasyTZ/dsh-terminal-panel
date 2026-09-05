@@ -1,6 +1,6 @@
 {
   "name": "@easytz/dsh-terminal-panel",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "终端面板：在当前工作区敲命令、看实时输出，多标签页、Tab 补全、Ctrl+C 中断。Terminal panel for DeepSeek Harness: run commands with streaming output, tabs, completion.",
   "type": "module",
   "main": "lib/index.js",
